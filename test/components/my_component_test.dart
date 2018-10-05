@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
 
 import 'package:showcase/components/my_component.dart';
 import '../helpers/golden_boundary.dart';
@@ -11,7 +10,7 @@ void main() {
     ));
 
     await expectLater(
-      find.byType(Container).first,
+      find.byType(MyComponent),
       matchesGoldenFile('golden.png'),
     );
   });
