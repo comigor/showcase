@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
 
 class MyWidget extends StatelessWidget {
+  final bool anotherBuild;
+  final double sliderValue;
+
+  MyWidget({
+    this.anotherBuild = false,
+    this.sliderValue = 2.0,
+  });
+
   @override
   Widget build(BuildContext context) {
+    if (anotherBuild) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(color: Colors.red, width: 40.0, height: 40.0),
+          Container(color: Colors.green, width: 40.0, height: 40.0),
+          Container(color: Colors.blue, width: 40.0, height: 40.0),
+        ],
+      );
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -18,7 +37,7 @@ class MyWidget extends StatelessWidget {
           value: true,
         ),
         Slider(
-          value: 2.0,
+          value: sliderValue,
           max: 7.0,
           onChanged: (_) {},
         ),
