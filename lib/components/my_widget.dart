@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyComponent extends StatelessWidget {
+class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

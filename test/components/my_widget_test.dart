@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:showcase/components/my_component.dart';
+import 'package:showcase/components/my_widget.dart';
 import '../helpers/golden_boundary.dart';
 
 void main() {
-  testWidgets('MyComponent golden', (WidgetTester tester) async {
+  testWidgets('MyWidget golden', (WidgetTester tester) async {
     await tester.pumpWidget(GoldenBoundary(
-      child: MyComponent(),
+      child: MyWidget(),
     ));
 
     await expectLater(
-      find.byType(MyComponent),
+      find.byType(MyWidget),
       matchesGoldenFile('golden.png'),
     );
   });
