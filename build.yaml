@@ -2,6 +2,5 @@ builders:
   showcase:
     import: 'package:showcase/showcase_generator.dart'
     builder_factories: ['showcaseBuilder']
-    # build_to: 'source'
     build_extensions: {'.dart': ['.showcased.dart']}
     auto_apply: dependents
