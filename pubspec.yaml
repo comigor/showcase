@@ -4,7 +4,7 @@ version: 0.0.1
 authors:
   - Igor Borges <igor@borges.me>
 
-description: Generates documentation screenshots of your widgets.
+description: Generate documentation screenshots of your widgets.
 homepage: https://github.com/Igor1201/showcase
 
 environment:

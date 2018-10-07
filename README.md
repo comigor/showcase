@@ -7,7 +7,7 @@
 
 [![Pub Package](https://img.shields.io/pub/v/showcase.svg)](https://pub.dartlang.org/packages/showcase)
 
-**Generates documentation screenshots of your widgets.**
+**Generate documentation screenshots of your widgets.**
 
 ---
 
@@ -22,7 +22,7 @@ then run:
 flutter packages get
 ```
 
-Then you can wither annotate the widgets you want to have showcased or manually create a test file with multiple widgets:
+Then you can either annotate the widgets you want to have showcased or manually create a test file with multiple widgets:
 
 ### **With annotations**
 Add another dependency to your `pubspec.yaml` file:
