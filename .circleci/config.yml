@@ -25,7 +25,6 @@ jobs:
               - .packages
               - .dart_tool
               - ~/.pub-cache
-              - ~/sdks/flutter
             key: v1-pubcache-{{ checksum "pubspec.yaml" }}
 
   test:
@@ -34,6 +33,12 @@ jobs:
         - checkout
         - restore_cache:
             key: v1-pubcache-{{ checksum "pubspec.yaml" }}
+        - run:
+            name: Change flutter channel to dev
+            command: flutter channel dev
+        - run:
+            name: Up(down)grade Flutter
+            command: ( cd ~/sdks/flutter; git checkout 3581b3ae85d30c5677445e0072c81d1f32280270; cd -; )
         - run:
             name: Lint
             command: bash -c '[[ "$(dartfmt -n . | wc -l)" -eq "0" ]]'
