@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 
 import './golden_boundary.dart';
 
-Future<Uint8List> capturePng(WidgetTester tester, GlobalKey key) async {
+Future<Uint8List> _capturePng(WidgetTester tester, GlobalKey key) async {
   final RenderRepaintBoundary boundary = key.currentContext.findRenderObject();
   final ui.Image image = await boundary.toImage();
   final ByteData byteData =
@@ -17,12 +17,12 @@ Future<Uint8List> capturePng(WidgetTester tester, GlobalKey key) async {
   return byteData.buffer.asUint8List();
 }
 
-Future<File> writeToFile(String path, Uint8List imageBytes) async {
+Future<File> _writeToFile(String path, Uint8List imageBytes) async {
   final File output = File(path)..createSync(recursive: true);
   return await output.writeAsBytes(imageBytes);
 }
 
-Future<void> makeTest(Widget widget, int index,
+Future<void> _makeTest(Widget widget, int index,
     {ContainerBuilder customContainerBuilder, String outDir}) async {
   final String strIndex = index.toString().padLeft(3, '0');
   testWidgets('[$strIndex] Showcasing ${widget.toString()}',
@@ -37,16 +37,18 @@ Future<void> makeTest(Widget widget, int index,
         customContainerBuilder: customContainerBuilder,
       ));
 
-      final Uint8List screenshotBytes = await capturePng(tester, key);
-      await writeToFile(
+      final Uint8List screenshotBytes = await _capturePng(tester, key);
+      await _writeToFile(
           '${outDir ?? 'showcase'}/${strIndex}_${widget.toString()}.png',
           screenshotBytes);
     });
   });
 }
 
+/// Use this function to generate screenshots of your widgets. See optional
+/// parameters for custom configurations.
 void showcaseWidgets(List<Widget> widgets,
     {ContainerBuilder customContainerBuilder, String outDir}) {
-  widgets.asMap().forEach((int index, Widget widget) => makeTest(widget, index,
+  widgets.asMap().forEach((int index, Widget widget) => _makeTest(widget, index,
       customContainerBuilder: customContainerBuilder, outDir: outDir));
 }

@@ -6,7 +6,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:build/build.dart';
 import 'package:showcase/showcased.dart';
 
-class ShowcaseGenerator extends Generator {
+class _ShowcaseGenerator extends Generator {
   TypeChecker get _typeChecker => const TypeChecker.fromRuntime(Showcased);
 
   File generatedFilePath(Uri originalFile) {
@@ -61,7 +61,8 @@ void main() {
   }
 }
 
-Builder showcaseBuilder(BuilderOptions options) {
-  return LibraryBuilder(ShowcaseGenerator(),
-      generatedExtension: '.showcased.dart');
-}
+/// Supports `package:build_runner` creation and configuration of `showcase`.
+///
+/// Not meant to be invoked by hand-authored code.
+Builder showcaseBuilder(BuilderOptions options) =>
+    LibraryBuilder(_ShowcaseGenerator(), generatedExtension: '.showcased.dart');
