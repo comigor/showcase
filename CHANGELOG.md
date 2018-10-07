@@ -1,4 +1,4 @@
 # CHANGELOG
 
-## 0.0.1
-- Not a release, we're just getting started.
+## 0.1.0
+- Beta. Use with caution, lots of missing features.

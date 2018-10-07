@@ -6,6 +6,7 @@
 <!-- Badges -->
 
 [![Pub Package](https://img.shields.io/pub/v/showcase.svg)](https://pub.dartlang.org/packages/showcase)
+[![CircleCI](https://circleci.com/gh/Igor1201/showcase/tree/master.svg?style=svg&circle-token=ea7145c55f42eb71149713dc604a911571022ff9)](https://circleci.com/gh/Igor1201/showcase/tree/master)
 
 **Generate documentation screenshots of your widgets.**
 
