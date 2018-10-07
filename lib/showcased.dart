@@ -1,0 +1,3 @@
+class Showcased {
+  const Showcased();
+}
