@@ -7,8 +7,10 @@ typedef ContainerBuilder = Container Function(Widget child);
 class GoldenBoundary extends StatelessWidget {
   /// The widget to be wrapped.
   final Widget child;
+
   /// A custom key to find this widget later.
   final GlobalKey globalKey;
+
   /// A function to customize the wrapping container.
   final ContainerBuilder customContainerBuilder;
 
