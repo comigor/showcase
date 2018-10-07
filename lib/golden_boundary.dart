@@ -20,14 +20,12 @@ class GoldenBoundary extends StatelessWidget {
     this.customContainerBuilder,
   });
 
-  Widget _defaultContainerBuilder(Widget child) {
-    return Container(
-      padding: const EdgeInsets.all(10.0),
-      width: 640.0,
-      height: 480.0,
-      child: child,
-    );
-  }
+  Widget _defaultContainerBuilder(Widget child) => Container(
+        padding: const EdgeInsets.all(10.0),
+        width: 640.0,
+        height: 480.0,
+        child: child,
+      );
 
   @override
   Widget build(BuildContext context) => MaterialApp(

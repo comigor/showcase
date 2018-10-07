@@ -11,7 +11,7 @@ class _ShowcaseGenerator extends Generator {
 
   File generatedFilePath(Uri originalFile) {
     final List<String> butFirst = originalFile.pathSegments.skip(1).toList()
-      ..insert(0, 'test');
+        ..insert(0, 'test');
     butFirst.add(butFirst.removeLast().replaceAllMapped(RegExp(r'^(.*)\.dart$'),
         (Match match) => '${match[1]}_test.showcased.dart'));
     final Uri newPath = originalFile.replace(pathSegments: butFirst);
@@ -38,7 +38,7 @@ class _ShowcaseGenerator extends Generator {
 
     final Uri assetUri = library.pathToAsset(buildStep.inputId);
 
-    buffer.writeln('''
+    buffer.write('''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 import 'package:flutter_test/flutter_test.dart';
