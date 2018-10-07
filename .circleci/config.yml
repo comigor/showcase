@@ -2,7 +2,7 @@ version: 2
 
 jobs_defaults: &defaults
   docker:
-    - image: borges/flutter
+    - image: cirrusci/flutter
   working_directory: ~/repo
 
 jobs:
@@ -10,6 +10,12 @@ jobs:
     <<: *defaults
     steps:
         - checkout
+        - run:
+            name: Change flutter channel to dev
+            command: flutter channel dev
+        - run:
+            name: Up(down)grade Flutter
+            command: ( cd /home/cirrus/sdks/flutter; git checkout 3581b3ae85d30c5677445e0072c81d1f32280270; cd -; )
         - run:
             name: Download dependencies
             command: flutter packages get
@@ -62,12 +68,16 @@ workflows:
     jobs:
       - deps:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v.*/
       - test:
           requires:
             - deps
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v.*/
       - deploy:
