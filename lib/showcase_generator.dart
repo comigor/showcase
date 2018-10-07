@@ -10,33 +10,33 @@ class ShowcaseGenerator extends Generator {
   TypeChecker get _typeChecker => const TypeChecker.fromRuntime(Showcased);
 
   File generatedFilePath(Uri originalFile) {
-    var butFirst = originalFile.pathSegments.skip(1).toList()..insert(0, 'test');
-    var filename = butFirst.removeLast();
-    butFirst.add(filename.replaceAllMapped(RegExp(r'^(.*)\.dart$'), (match) {
-      return '${match[1]}_test.showcased.dart';
-    }));
-    var newPath = originalFile.replace(pathSegments: butFirst);
+    final List<String> butFirst = originalFile.pathSegments.skip(1).toList()
+      ..insert(0, 'test');
+    butFirst.add(butFirst.removeLast().replaceAllMapped(RegExp(r'^(.*)\.dart$'),
+        (Match match) => '${match[1]}_test.showcased.dart'));
+    final Uri newPath = originalFile.replace(pathSegments: butFirst);
     return File(newPath.path);
   }
 
   @override
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) {
-    for (var annotatedElement in library.annotatedWith(_typeChecker)) {
+    for (AnnotatedElement annotatedElement
+        in library.annotatedWith(_typeChecker)) {
       // TODO(igor): filter Widgets only
-      var generatedValue = generateForAnnotatedElement(
-          annotatedElement.element, annotatedElement.annotation, buildStep, library);
-      return generatedValue;
+      return generateForAnnotatedElement(annotatedElement.element,
+          annotatedElement.annotation, buildStep, library);
     }
+    return null;
   }
 
   Future<String> generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep, LibraryReader library) async {
-    var buffer = StringBuffer();
+      Element element,
+      ConstantReader annotation,
+      BuildStep buildStep,
+      LibraryReader library) async {
+    final StringBuffer buffer = StringBuffer();
 
-    Uri assetUri = library.pathToAsset(buildStep.inputId);
-
-    TypeChecker a = const TypeChecker.fromUrl('package:flutter/widgets.dart#Widget');
-    TypeChecker b = const TypeChecker.fromUrl('package:showcase/showcase.dart#Showcased');
+    final Uri assetUri = library.pathToAsset(buildStep.inputId);
 
     buffer.writeln('''
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -52,15 +52,16 @@ void main() {
 }
 ''');
 
-    File file = generatedFilePath(assetUri);
+    final File file = generatedFilePath(assetUri);
     await file.create(recursive: true);
-    
+
     await file.writeAsString(buffer.toString());
-    
+
     return null;
   }
 }
 
 Builder showcaseBuilder(BuilderOptions options) {
-  return LibraryBuilder(ShowcaseGenerator(), generatedExtension: '.showcased.dart');
+  return LibraryBuilder(ShowcaseGenerator(),
+      generatedExtension: '.showcased.dart');
 }

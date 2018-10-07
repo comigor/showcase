@@ -7,8 +7,7 @@ class GoldenBoundary extends StatelessWidget {
   final GlobalKey globalKey;
   final ContainerBuilder customContainerBuilder;
 
-
-  GoldenBoundary({
+  const GoldenBoundary({
     @required this.child,
     this.globalKey,
     this.customContainerBuilder,
@@ -16,7 +15,7 @@ class GoldenBoundary extends StatelessWidget {
 
   Widget _defaultContainerBuilder(Widget child) {
     return Container(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       width: 640.0,
       height: 480.0,
       child: child,
@@ -29,9 +28,9 @@ class GoldenBoundary extends StatelessWidget {
       home: Scaffold(
         body: RepaintBoundary(
           key: globalKey,
-          child: customContainerBuilder != null ?
-              customContainerBuilder(child) :
-              _defaultContainerBuilder(child),
+          child: customContainerBuilder != null
+              ? customContainerBuilder(child)
+              : _defaultContainerBuilder(child),
         ),
       ),
     );
