@@ -15,7 +15,7 @@ jobs:
             command: flutter channel dev
         - run:
             name: Up(down)grade Flutter
-            command: ( cd /home/cirrus/sdks/flutter; git checkout 3581b3ae85d30c5677445e0072c81d1f32280270; cd -; )
+            command: ( cd ~/sdks/flutter; git checkout 3581b3ae85d30c5677445e0072c81d1f32280270; cd -; )
         - run:
             name: Download dependencies
             command: flutter packages get
@@ -25,6 +25,7 @@ jobs:
               - .packages
               - .dart_tool
               - ~/.pub-cache
+              - ~/sdks/flutter
             key: v1-pubcache-{{ checksum "pubspec.yaml" }}
 
   test:
