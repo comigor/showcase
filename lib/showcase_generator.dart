@@ -13,7 +13,7 @@ class _ShowcaseGenerator extends Generator {
     final List<String> butFirst = originalFile.pathSegments.skip(1).toList()
       ..insert(0, 'test');
     butFirst.add(butFirst.removeLast().replaceAllMapped(RegExp(r'^(.*)\.dart$'),
-        (Match match) => '${match[1]}_test.showcased.dart'));
+        (Match match) => '${match[1]}.showcased_test.dart'));
     final Uri newPath = originalFile.replace(pathSegments: butFirst);
     return File(newPath.path);
   }
