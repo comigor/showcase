@@ -63,3 +63,7 @@ void main() {
 Replace the empty list with a collection of widgets. `showcaseWidgets` also have some options you can tweak.
 
 Then it's just a matter of running `flutter test` and have your screenshots generated on `./showcase/` (or another output directory you had configured).
+
+## **Example showcase**
+The example app provided generates the following showcase image:
+![](example/test/showcase/000_MyWidget.png)
