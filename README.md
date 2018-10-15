@@ -42,7 +42,7 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-The builder will generate a `_test.showcased.dart` test file for each annotated class file. Just run:
+The builder will generate a `.showcased_test.dart` test file for each annotated class file. Just run:
 ```shell
 flutter packages pub run build_runner build
 ```
