@@ -47,7 +47,7 @@ jobs:
             command: dartanalyzer --fatal-infos --fatal-warnings lib/
         - run:
             name: Test
-            command: flutter test .
+            command: ( cd example/; flutter test )
 
   deploy:
     <<: *defaults
