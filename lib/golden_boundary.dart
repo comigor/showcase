@@ -5,6 +5,14 @@ typedef ContainerBuilder = Container Function(Widget child);
 /// Use [GoldenBoundary] to wrap a [Widget] and be able to find its
 /// [RenderObject] from a [GlobalKey].
 class GoldenBoundary extends StatelessWidget {
+  /// Default constructor. Use [customContainerBuilder] if you want to customize
+  /// the wrapping container.
+  const GoldenBoundary({
+    @required this.child,
+    this.globalKey,
+    this.customContainerBuilder,
+  });
+
   /// The widget to be wrapped.
   final Widget child;
 
@@ -13,14 +21,6 @@ class GoldenBoundary extends StatelessWidget {
 
   /// A function to customize the wrapping container.
   final ContainerBuilder customContainerBuilder;
-
-  /// Default constructor. Use [customContainerBuilder] if you want to customize
-  /// the wrapping container.
-  const GoldenBoundary({
-    @required this.child,
-    this.globalKey,
-    this.customContainerBuilder,
-  });
 
   Widget _defaultContainerBuilder(Widget child) => Container(
         padding: const EdgeInsets.all(10.0),

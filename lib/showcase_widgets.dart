@@ -10,11 +10,14 @@ import 'package:flutter/rendering.dart';
 import './golden_boundary.dart';
 
 Future<Uint8List> _capturePng(WidgetTester tester, GlobalKey key) async {
-  final RenderRepaintBoundary boundary = key.currentContext.findRenderObject();
-  final ui.Image image = await boundary.toImage();
-  final ByteData byteData =
-      await image.toByteData(format: ui.ImageByteFormat.png);
-  return byteData.buffer.asUint8List();
+  final RenderObject boundary = key.currentContext.findRenderObject();
+  if (boundary is RenderRepaintBoundary) {
+    final ui.Image image = await boundary.toImage();
+    final ByteData byteData =
+        await image.toByteData(format: ui.ImageByteFormat.png);
+    return byteData.buffer.asUint8List();
+  }
+  return null;
 }
 
 Future<File> _writeToFile(String path, Uint8List imageBytes) async {
