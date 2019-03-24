@@ -1,4 +1,4 @@
-workflow "Deploy" {
+workflow "Deploy if tagged" {
   on = "push"
   resolves = ["Deploy"]
 }
