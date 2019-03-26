@@ -29,7 +29,7 @@ Then you can either annotate the widgets you want to have showcased or manually 
 Add another dependency to your `pubspec.yaml` file:
 ```yaml
 dev_dependencies:
-  build_runner: ^0.10.0
+  build_runner: ^1.2.8
 ```
 
 Just annotate the widgets you want with `@Showcased`:
