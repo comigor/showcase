@@ -47,8 +47,7 @@ import 'package:showcase/showcase.dart';
 import '${assetUri.toString()}';
 
 Future<void> main() async {
-  final FontLoader fontLoader = FontLoader('Roboto')..addFont(fetchFont());
-  await fontLoader.load();
+  await loadFonts();
 
   group('Showcase ${element.name}', () {
     showcaseWidgets([${element.name}()]);
