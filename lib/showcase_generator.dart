@@ -44,13 +44,18 @@ class _ShowcaseGenerator extends Generator {
     final ConstructorElement defaultConstructor = element.constructors
         .firstWhere((ConstructorElement c) => c.name == '', orElse: () => null);
 
-    final ParameterElement _firstRequiredParameterWithoutDefault =
-        defaultConstructor.parameters.firstWhere(
-      (ParameterElement p) => p.isNotOptional && p.defaultValueCode == null,
-      orElse: () => null,
-    );
-    final bool hasAnyRequiredParameter =
-        _firstRequiredParameterWithoutDefault != null;
+    final ParameterElement _firstRequiredParameter =
+        defaultConstructor.parameters.firstWhere((ParameterElement p) {
+      final bool namedParamIsRequired = p.metadata.firstWhere(
+            (a) => a.computeConstantValue().type.name == 'Required',
+            orElse: () => null,
+          ) !=
+          null;
+
+      return (p.isNotOptional || (p.isNamed && namedParamIsRequired)) &&
+          p.defaultValueCode == null;
+    }, orElse: () => null);
+    final bool hasAnyRequiredParameter = _firstRequiredParameter != null;
 
     final ConstructorElement forDesignTime = element.constructors.singleWhere(
       (ConstructorElement c) => c.name == 'forDesignTime',
