@@ -19,3 +19,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: DancingScript
+      fonts:
+        - asset: fonts/DancingScript/DancingScript-Regular.ttf
+          weight: 400
+        - asset: fonts/DancingScript/DancingScript-Bold.ttf
+          weight: 700
