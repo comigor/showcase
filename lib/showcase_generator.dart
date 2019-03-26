@@ -23,20 +23,53 @@ class _ShowcaseGenerator extends Generator {
     for (AnnotatedElement annotatedElement
         in library.annotatedWith(_typeChecker)) {
       // TODO(igor): filter Widgets only
-      return generateForAnnotatedElement(annotatedElement.element,
-          annotatedElement.annotation, buildStep, library);
+      final Element subElement = annotatedElement.element;
+      if (subElement is ClassElement) {
+        return generateForAnnotatedElement(
+            subElement, annotatedElement.annotation, buildStep, library);
+      }
     }
     return null;
   }
 
   Future<String> generateForAnnotatedElement(
-      Element element,
+      ClassElement element,
       ConstantReader annotation,
       BuildStep buildStep,
       LibraryReader library) async {
     final StringBuffer buffer = StringBuffer();
 
     final Uri assetUri = library.pathToAsset(buildStep.inputId);
+
+    final ConstructorElement defaultConstructor = element.constructors
+        .firstWhere((ConstructorElement c) => c.name == '', orElse: () => null);
+
+    final ParameterElement _firstRequiredParameterWithoutDefault =
+        defaultConstructor.parameters.firstWhere(
+      (ParameterElement p) => p.isNotOptional && p.defaultValueCode == null,
+      orElse: () => null,
+    );
+    final bool hasAnyRequiredParameter =
+        _firstRequiredParameterWithoutDefault != null;
+
+    final ConstructorElement forDesignTime = element.constructors.singleWhere(
+      (ConstructorElement c) => c.name == 'forDesignTime',
+      orElse: () => null,
+    );
+    final bool isForDesignTimeDefined = forDesignTime != null;
+
+    if (hasAnyRequiredParameter && !isForDesignTimeDefined) {
+      throw Exception('''
+
+${element.name} default constructor has required parameters which are not set.
+Give them default values or create a [forDesignTime] factory with default (dev-only) values.
+See https://github.com/flutter/flutter-intellij/wiki/Using-live-preview
+
+''');
+    }
+
+    final String constructor =
+        isForDesignTimeDefined ? '${element.name}.forDesignTime' : element.name;
 
     buffer.write('''
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -49,7 +82,7 @@ Future<void> main() async {
   await loadFonts();
 
   group('Showcase ${element.name}', () {
-    showcaseWidgets([${element.name}()]);
+    showcaseWidgets([$constructor()]);
   });
 }
 ''');
