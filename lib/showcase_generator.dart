@@ -25,14 +25,15 @@ class _ShowcaseGenerator extends Generator {
       // TODO(igor): filter Widgets only
       final Element subElement = annotatedElement.element;
       if (subElement is ClassElement) {
-        return generateForAnnotatedElement(
-            subElement, annotatedElement.annotation, buildStep, library);
+        return generateForAnnotatedElement(annotatedElement, subElement,
+            annotatedElement.annotation, buildStep, library);
       }
     }
     return null;
   }
 
   Future<String> generateForAnnotatedElement(
+      AnnotatedElement annotatedElement,
       ClassElement element,
       ConstantReader annotation,
       BuildStep buildStep,
@@ -77,18 +78,24 @@ See https://github.com/flutter/flutter-intellij/wiki/Using-live-preview
     final String constructor =
         isForDesignTimeDefined ? '${element.name}.forDesignTime' : element.name;
 
+    final double boundaryWidth =
+        annotatedElement.annotation.peek('width').doubleValue;
+    final double boundaryHeight =
+        annotatedElement.annotation.peek('height').doubleValue;
+
     buffer.write('''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:showcase/showcase.dart';
-import '${assetUri.toString()}';
+import '$assetUri';
 
 Future<void> main() async {
   await loadFonts();
 
   group('Showcase ${element.name}', () {
-    showcaseWidgets([$constructor()]);
+    showcaseWidgets([$constructor()], size: const Size($boundaryWidth, $boundaryHeight));
   });
 }
 ''');
