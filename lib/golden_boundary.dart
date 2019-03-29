@@ -12,7 +12,7 @@ class GoldenBoundary extends StatelessWidget {
     this.globalKey,
     this.size,
     this.customContainerBuilder,
-  }) : assert(size == null && customContainerBuilder == null,
+  }) : assert(size != null || customContainerBuilder != null,
             'At least one of [size] or [customContainerBuilder] is required.');
 
   /// The widget to be wrapped.
