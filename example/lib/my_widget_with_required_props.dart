@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:showcase/showcase.dart';
 
-@Showcased()
+@Showcased(width: 480.0, height: 48.0)
 class MyWidgetWithRequiredProps extends StatelessWidget {
   MyWidgetWithRequiredProps(this.label);
 
