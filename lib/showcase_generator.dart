@@ -47,7 +47,8 @@ class _ShowcaseGenerator extends Generator {
     final ParameterElement _firstRequiredParameter =
         defaultConstructor.parameters.firstWhere((ParameterElement p) {
       final bool namedParamIsRequired = p.metadata.firstWhere(
-            (a) => a.computeConstantValue().type.name == 'Required',
+            (ElementAnnotation a) =>
+                a.computeConstantValue().type.name == 'Required',
             orElse: () => null,
           ) !=
           null;
