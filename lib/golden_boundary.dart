@@ -10,8 +10,10 @@ class GoldenBoundary extends StatelessWidget {
   const GoldenBoundary({
     @required this.child,
     this.globalKey,
+    this.size,
     this.customContainerBuilder,
-  });
+  }) : assert(size != null || customContainerBuilder != null,
+            'At least one of [size] or [customContainerBuilder] is required.');
 
   /// The widget to be wrapped.
   final Widget child;
@@ -22,10 +24,13 @@ class GoldenBoundary extends StatelessWidget {
   /// A function to customize the wrapping container.
   final ContainerBuilder customContainerBuilder;
 
+  /// The size of the wrapping container.
+  final Size size;
+
   Widget _defaultContainerBuilder(Widget child) => Container(
         padding: const EdgeInsets.all(10.0),
-        width: 640.0,
-        height: 480.0,
+        width: size != null ? size.width : 640.0,
+        height: size != null ? size.height : 640.0,
         child: child,
       );
 

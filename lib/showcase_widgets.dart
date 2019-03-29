@@ -26,7 +26,7 @@ Future<File> _writeToFile(String path, Uint8List imageBytes) async {
 }
 
 Future<void> _makeTest(Widget widget, int index,
-    {ContainerBuilder customContainerBuilder, String outDir}) async {
+    {ContainerBuilder customContainerBuilder, Size size, String outDir}) async {
   final String strIndex = index.toString().padLeft(3, '0');
   testWidgets('[$strIndex] Showcasing ${widget.toString()}',
       (WidgetTester tester) async {
@@ -37,6 +37,7 @@ Future<void> _makeTest(Widget widget, int index,
       await tester.pumpWidget(GoldenBoundary(
         globalKey: key,
         child: widget,
+        size: size,
         customContainerBuilder: customContainerBuilder,
       ));
 
@@ -51,7 +52,12 @@ Future<void> _makeTest(Widget widget, int index,
 /// Use this function to generate screenshots of your widgets. See optional
 /// parameters for custom configurations.
 void showcaseWidgets(List<Widget> widgets,
-    {ContainerBuilder customContainerBuilder, String outDir}) {
-  widgets.asMap().forEach((int index, Widget widget) => _makeTest(widget, index,
-      customContainerBuilder: customContainerBuilder, outDir: outDir));
+    {ContainerBuilder customContainerBuilder, Size size, String outDir}) {
+  widgets.asMap().forEach((int index, Widget widget) => _makeTest(
+        widget,
+        index,
+        customContainerBuilder: customContainerBuilder,
+        size: size,
+        outDir: outDir,
+      ));
 }

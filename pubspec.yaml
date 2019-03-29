@@ -1,5 +1,5 @@
 name: showcase
-version: 0.5.2
+version: 0.6.0
 
 authors:
   - Igor Borges <igor@borges.me>
@@ -15,12 +15,13 @@ dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  build: ^1.1.1
+  build: ^1.1.2
   source_gen: ^0.9.4+1
   analyzer: ^0.35.0
   glob: ^1.1.7
   http: ^0.12.0+1
   yaml: ^2.1.15
+  dart_style: ^1.2.4
 
 dev_dependencies:
   test: ^1.0.0
