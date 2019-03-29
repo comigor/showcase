@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.6.0
+- Make `@Showcased` annotation receive optional wrapping container size.
+
 ## 0.5.1
 - Consider named parameters when querying for required.
 
