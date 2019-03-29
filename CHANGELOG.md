@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 0.5.1
+- Consider named parameters when querying for required.
+
+## 0.5.0
+- Use forDesignTime when default constructor has required parameters.
+
+In order to be showcased, the @showcased widget class must have a default constructor with no required parameters without default values OR define a `forDesignTime()` factory constructor. The reason for this is that widgets are usually created with context specific constructor parameters. When rendering the preview of the widget, we don’t necessarily know the right values for these parameters. So, we let the user to provide them for us via this specially named constructor.
+
+## 0.4.1
+- Remove unused import.
+
+## 0.4.0
+- Load custom fonts (defined in project pubspec.yaml) aside from Roboto before showcasing.
+
 ## 0.3.0
 - Make showcased widgets display fonts.
 
