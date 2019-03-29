@@ -5,6 +5,9 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:build/build.dart';
 import 'package:showcase/showcased.dart';
+import 'package:dart_style/dart_style.dart';
+
+final DartFormatter _dartFormatter = DartFormatter();
 
 class _ShowcaseGenerator extends Generator {
   TypeChecker get _typeChecker => const TypeChecker.fromRuntime(Showcased);
@@ -103,7 +106,9 @@ Future<void> main() async {
     final File file = generatedFilePath(assetUri);
     await file.create(recursive: true);
 
-    await file.writeAsString(buffer.toString());
+    final String formattedFile = _dartFormatter.format(buffer.toString());
+
+    await file.writeAsString(formattedFile);
 
     return null;
   }
