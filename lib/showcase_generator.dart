@@ -62,10 +62,7 @@ class _ShowcaseGenerator extends Generator {
     }, orElse: () => null);
     final bool hasAnyRequiredParameter = _firstRequiredParameter != null;
 
-    final ConstructorElement forDesignTime = element.constructors.singleWhere(
-      (ConstructorElement c) => c.name == 'forDesignTime',
-      orElse: () => null,
-    );
+    final MethodElement forDesignTime = element.getMethod('forDesignTime');
     final bool isForDesignTimeDefined = forDesignTime != null;
 
     if (hasAnyRequiredParameter && !isForDesignTimeDefined) {
@@ -86,6 +83,10 @@ See https://github.com/flutter/flutter-intellij/wiki/Using-live-preview
     final double boundaryHeight =
         annotatedElement.annotation.peek('height').doubleValue;
 
+    final showcase = forDesignTime.returnType.name.contains("List")
+        ? "showcaseWidgets($constructor(), size: const Size($boundaryWidth, $boundaryHeight));"
+        : "showcaseWidgets([$constructor()], size: const Size($boundaryWidth, $boundaryHeight));";
+
     buffer.write('''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
@@ -98,7 +99,7 @@ Future<void> main() async {
   await loadFonts();
 
   group('Showcase ${element.name}', () {
-    showcaseWidgets([$constructor()], size: const Size($boundaryWidth, $boundaryHeight));
+    $showcase
   });
 }
 ''');
