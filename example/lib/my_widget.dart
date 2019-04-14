@@ -8,8 +8,13 @@ class MyWidget extends StatelessWidget {
 
   MyWidget({
     this.anotherBuild = false,
-    this.sliderValue = 2.0,
+    @required this.sliderValue,
   });
+
+  static List<Widget> forDesignTime() => [
+        MyWidget(sliderValue: 2.0),
+        MyWidget(anotherBuild: true, sliderValue: 5.0),
+      ];
 
   @override
   Widget build(BuildContext context) {
