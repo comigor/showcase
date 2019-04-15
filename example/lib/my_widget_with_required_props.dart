@@ -5,7 +5,7 @@ import 'package:showcase/showcase.dart';
 class MyWidgetWithRequiredProps extends StatelessWidget {
   MyWidgetWithRequiredProps(this.label);
 
-  factory MyWidgetWithRequiredProps.forDesignTime() =>
+  static Widget forDesignTime() =>
       MyWidgetWithRequiredProps('Default test-only label.');
 
   final String label;

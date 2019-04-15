@@ -9,6 +9,6 @@ Future<void> main() async {
   await loadFonts();
 
   group('Showcase MyWidget', () {
-    showcaseWidgets([MyWidget()], size: const Size(640.0, 480.0));
+    showcaseWidgets(MyWidget.forDesignTime(), size: const Size(640.0, 480.0));
   });
 }

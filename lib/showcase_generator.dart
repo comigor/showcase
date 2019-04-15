@@ -62,29 +62,33 @@ class _ShowcaseGenerator extends Generator {
     }, orElse: () => null);
     final bool hasAnyRequiredParameter = _firstRequiredParameter != null;
 
-    final ConstructorElement forDesignTime = element.constructors.singleWhere(
-      (ConstructorElement c) => c.name == 'forDesignTime',
-      orElse: () => null,
-    );
+    final MethodElement forDesignTime =
+        element.lookUpMethod('forDesignTime', library.element);
     final bool isForDesignTimeDefined = forDesignTime != null;
 
     if (hasAnyRequiredParameter && !isForDesignTimeDefined) {
       throw Exception('''
 
 ${element.name} default constructor has required parameters which are not set.
-Give them default values or create a [forDesignTime] factory with default (dev-only) values.
-See https://github.com/flutter/flutter-intellij/wiki/Using-live-preview
+Give them default values or create a [forDesignTime] class method with default
+(dev-only) values, that return either [Widget] or [List<Widget>].
 
 ''');
     }
-
-    final String constructor =
-        isForDesignTimeDefined ? '${element.name}.forDesignTime' : element.name;
 
     final double boundaryWidth =
         annotatedElement.annotation.peek('width').doubleValue;
     final double boundaryHeight =
         annotatedElement.annotation.peek('height').doubleValue;
+
+    String constructor = '[${element.name}()]';
+    if (isForDesignTimeDefined &&
+        forDesignTime.returnType.displayName == 'Widget') {
+      constructor = '[${element.name}.forDesignTime()]';
+    } else if (isForDesignTimeDefined &&
+        forDesignTime.returnType.displayName == 'List<Widget>') {
+      constructor = '${element.name}.forDesignTime()';
+    }
 
     buffer.write('''
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -98,7 +102,7 @@ Future<void> main() async {
   await loadFonts();
 
   group('Showcase ${element.name}', () {
-    showcaseWidgets([$constructor()], size: const Size($boundaryWidth, $boundaryHeight));
+    showcaseWidgets($constructor, size: const Size($boundaryWidth, $boundaryHeight));
   });
 }
 ''');

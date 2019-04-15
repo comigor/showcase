@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.0-alpha
+- `forDesignTime` is now a class method instead of a factory, and can return either a Widget or a List<Widget>.
+
 ## 0.6.0
 - Make `@Showcased` annotation receive optional wrapping container size.
 
