@@ -8,7 +8,7 @@ description: Generate documentation screenshots of your widgets by just annotati
 homepage: https://github.com/Igor1201/showcase
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.6.0 <3.0.0'
 
 dependencies:
   flutter:
