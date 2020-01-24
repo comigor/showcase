@@ -51,13 +51,13 @@ Future<void> _makeTest(Widget widget, int index,
 
 /// Use this function to generate screenshots of your widgets. See optional
 /// parameters for custom configurations.
-void showcaseWidgets(List<Widget> widgets,
+Future<void> showcaseWidgets(List<Widget> widgets,
     {ContainerBuilder customContainerBuilder, Size size, String outDir}) {
-  widgets.asMap().forEach((int index, Widget widget) => _makeTest(
-        widget,
-        index,
+  return Future.wait(widgets.asMap().entries.map((entry) => _makeTest(
+        entry.value,
+        entry.key,
         customContainerBuilder: customContainerBuilder,
         size: size,
         outDir: outDir,
-      ));
+      )));
 }
