@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.1.0
+- Update `showcaseWidgets` to return a Future.
+
 ## 1.0.0-alpha
 - `forDesignTime` is now a class method instead of a factory, and can return either a Widget or a List<Widget>.
 

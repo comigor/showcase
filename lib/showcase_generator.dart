@@ -52,7 +52,7 @@ class _ShowcaseGenerator extends Generator {
         defaultConstructor.parameters.firstWhere((ParameterElement p) {
       final bool namedParamIsRequired = p.metadata.firstWhere(
             (ElementAnnotation a) =>
-                a.computeConstantValue().type.name == 'Required',
+                a.computeConstantValue().type.getDisplayString() == 'Required',
             orElse: () => null,
           ) !=
           null;
@@ -83,10 +83,10 @@ Give them default values or create a [forDesignTime] class method with default
 
     String constructor = '[${element.name}()]';
     if (isForDesignTimeDefined &&
-        forDesignTime.returnType.displayName == 'Widget') {
+        forDesignTime.returnType.getDisplayString() == 'Widget') {
       constructor = '[${element.name}.forDesignTime()]';
     } else if (isForDesignTimeDefined &&
-        forDesignTime.returnType.displayName == 'List<Widget>') {
+        forDesignTime.returnType.getDisplayString() == 'List<Widget>') {
       constructor = '${element.name}.forDesignTime()';
     }
 
